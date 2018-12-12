@@ -3,7 +3,13 @@ This program proposes the user a subsitute for any ingredient that he searches u
 
 ## Use scenario
 You, as a good citizen of the world, have decided that you cannot keep eating junk food that are not only bad for your health but also for the planet. You have taken the decision to change all of that.
+<<<<<<< HEAD
 When you launch the program you have two choices:
+=======
+
+When you enter the program will ask you either to create an account or to log in.
+When you are finally logged in, you have two choices:
+>>>>>>> bd7f47df65c77c16fb58a9ad6efff234942a8255
 1. You can ask for a subsitute for a certain product,
 2. You can see your saved substitutes from previous researches.
 
@@ -24,3 +30,7 @@ After that once again the system will propose you to make a new search or consul
 
 ### for Windows users
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> bd7f47df65c77c16fb58a9ad6efff234942a8255
