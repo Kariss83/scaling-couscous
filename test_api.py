@@ -13,7 +13,7 @@ class Api_communicant(object):
         """
 
         """
-        self.response = requests.get('https://python.org/')
+        self.response = requests.get('https://fr.openfoodfacts.org/cgi/search.pl?search_terms=nutella&search_simple=1&action=process&json=1')
 
     def api_answer_checking(self):
         """
