@@ -6,7 +6,7 @@ import requests # https://github.com/kennethreitz/requests
 import records # https://github.com/kennethreitz/records
 
 # randomuser.me generates random 'user' data (name, email, addr, phone number, etc)
-r = requests.get('https://fr.openfoodfacts.org/cgi/search.pl?categories=viandes&page_size=20&json=1')
+r = requests.get('https://world.openfoodfacts.org/cgi/search.pl?categories=viandes&page_size=20&json=1')
 j = r.json()['results']
 
 

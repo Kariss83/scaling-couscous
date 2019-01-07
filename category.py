@@ -2,9 +2,12 @@
 # -*- coding : utf8 -*-
 
 
-class Category(object):
+class Category:
     """ This class correspond to the table category in the DB."""
 
 
-class CategoryRepository(object):
+class CategoryRepository:
     """ Managing Categories."""
+
+
+if __name__ == '__main__':
