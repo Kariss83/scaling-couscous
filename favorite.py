@@ -2,9 +2,12 @@
 # -*- coding : utf8 -*-
 
 
-class Favorite(object):
+class Favorite:
     """ This class correspond to the table favorite in the DB. """
 
 
-class FavoriteRepository(object):
+class FavoriteRepository:
     """ Managing favorites. """
+
+
+if __name__ == '__main__':
