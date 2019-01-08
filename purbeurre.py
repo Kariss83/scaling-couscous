@@ -10,9 +10,9 @@ class Dbcreator(object):
     """This class initialize the DB in order to start the program"""
     @classmethod
     def launch(cls):
+        fetcher = Fetcher()
+        fetcher.create_table()
         for cat in CATEGORIES:
-            fetcher = Fetcher()
-            fetcher.create_table()
             fetcher.create_crits("categories", "contains", cat, 1000, 
             "unique_scans_n")
             fetcher.request()

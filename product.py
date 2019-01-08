@@ -4,6 +4,15 @@
 
 class Product:
     """ This class correspond to the table product in the DB."""
+    
+    def __init__(self):
+        """ This method will create the structure of Products in program"""
+        self.id = self.db.query("")
+        self.name = self.db.query("")
+        self.category = self.db.query("")
+        self.tags = self.db.query("")
+        self.nutrigrade = self.db.query("")
+        
 
 
 class ProductsRepository:
@@ -20,10 +29,4 @@ class ProductsRepository:
 
 
 if __name__ == '__main__':
-
-https://fr.openfoodfacts.org/cgi/search.pl?action=process&page_size=1000&json=1
-https://fr.openfoodfacts.org/category/{category_name}/{page_number}.json
-
-CREATE TABLE Products (id int, name text, tags text,url text, PRIMARY KEY (id))
-
-activer relative line number
+    pass
