@@ -20,8 +20,7 @@ class Dbcreator(object):
 
 class UserInterface(object):
     """This is the main class of the game, the one that runs the game and load
-    every component.
-    """
+    every component"""
 
     def __init__(self):
         """ Here we initialize everything that we need to run the program
