@@ -2,4 +2,4 @@
 # -*- coding : utf8 -*-
 
 CATEGORIES = ["boissons", "viandes", "desserts", "produits laitiers", 
-    "produits de la mer", "condiments", "plats préparés"]
+    "produits de la mer", "condiments", "plats préparés", "pizza"]

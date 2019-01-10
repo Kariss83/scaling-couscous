@@ -52,7 +52,8 @@ class Fetcher:
                 stores = rec['stores']
                 tags = rec['categories_prev_tags']
                 url = rec['url']
-                if nutrition_grade in ('a', 'b', 'c', 'd', 'e', 'f'):
+                # stocker les magasins égalment.
+                if nutrition_grade in ('a', 'b', 'c', 'd', 'e'):
                     self.db.query("INSERT INTO Products(id, name, url, tags,\
                     category, nutrigrade) VALUES(NULL, :name, :url,\
                     :tags, :category, :nutrigrade)",

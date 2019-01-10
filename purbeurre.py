@@ -35,7 +35,8 @@ class UserInterface(object):
         choices from the user 
         """
         print(text)
-        print("Choissisez parmi ces {} paramètres : {}".format(len(possible_choices),possible_choices))
+        print("Choissisez parmi ces {} paramètres :\
+         {}".format(len(possible_choices),possible_choices))
    
    
     def get_user_choice(self, possible_choices):
