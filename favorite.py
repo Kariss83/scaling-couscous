@@ -24,6 +24,8 @@ class Favorite():
                 print("Veuillez entrer une réponse valide svp.")
         except:
             print("Une erreur est survenue lors de l'enregistrement. Désolé.")
+        
+        #relancer welcome
     
     def find_old_fav(self, connector):
         """This methode display all the saved favorites from previous 
@@ -35,6 +37,8 @@ class Favorite():
                 fav.substitute)
         except:
             print("Nous n'avons pas trouvé de favoris enregistrés")
+        
+        #relancer welcome
 
 
 if __name__ == '__main__':

@@ -30,3 +30,16 @@ class ProductsRepository:
 
 if __name__ == '__main__':
     pass
+
+
+    SELECT products.name, COUNT(*) FROM Products         
+JOIN Product_has_tag ON Products.id = Product_has_tag.product_id         
+JOIN Categories ON  Products.category_id = categories.id         
+WHERE              
+	categories.name = 'boissons'              
+    AND products.id != 1              
+    AND product_has_tag.tag_id IN (
+		SELECT tag_id FROM product_has_tag WHERE product_id = 1)              
+	AND products.nutrigrade IN ('a', 'b')     
+    GROUP BY products.id         
+    ORDER BY count(*) DESC;  

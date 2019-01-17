@@ -81,7 +81,7 @@ class Susbtitutor():
         # ON DUPLICATE UPDATE pour le problème des cléf uniques
         # faire un split pour récuperer les tags puis transofrmer en set
         # utiliiser argparse pour les paramètre optionels ( avec option --install) on crée la DB
-        # 
+        # Modifiier les requêtes
 
 
 

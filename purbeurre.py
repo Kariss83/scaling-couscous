@@ -25,13 +25,17 @@ class UserInterface():
         Vous pouvez taper 1 pour faire une recherche de substituts.\n
         Vous pouvez taper 2 pour voir les substituts enregistrés sur cette 
         machine.""")
-        try:
-            self.choices = int(input())
-            assert self.choices in (0, 1, 2)
-        except ValueError:
-            print('Vous devez entrer 0, 1 ou 2!')
-        except AssertionError:
-            print('Vous devez entrer 0, 1 ou 2!')
+        while True:
+            try:
+                self.choices = int(input())
+                if self.choices not in (0, 1, 2):
+                    raise ValueError("Vous devez entrer 0, 1 ou 2!")
+            except ValueError:
+                print('Vous devez entrer 0, 1 ou 2!')
+                self.choices = int(input())
+            else:
+                break
+        # pensez répétition de la question (boucle while)
     
     def repart(self):
         """This method will analyse the user answer and process to the next 
@@ -55,8 +59,8 @@ class UserInterface():
             fetcher.populate_products(cat, connector)
         fetcher.populate_tags(connector)
         fetcher.populate_products_has_tags(connector)
-        print("""Congratulations, you have initialized the DB! \nYou must now
-        launch the program with the option -s or --substitute""")
+        print("Congratulations, you have initialized the DB! \nYou must now "
+        "launch the program without option")
     
     @classmethod
     def make_search(cls):
@@ -84,7 +88,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-i", "--initalization", action="store_true", 
     help="use this option to initialize the DB at first launch")
-    parser.add_argument
     args = parser.parse_args()
     if args.initalization:
         connector = Connector()

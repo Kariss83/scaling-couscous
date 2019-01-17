@@ -71,7 +71,7 @@ class Susbtitutor():
             )
 
             AND products.nutrigrade IN ('a', 'b')
-        GROUP BY products.name
+        GROUP BY products.id
         ORDER BY count(*) DESC""",
         cat_name=substitute_cat, prod_id=self.prod_choice.id)
         print('voici votre substitut :')
