@@ -72,13 +72,15 @@ class UserInterface():
         substitutor.pick_products(connector)
         substitutor.pick_substitute(connector)
         favorite_repository.save_fav(connector, substitutor)
+        cls.welcome()
 
-    @classmethod
+
     def find_search(cls):
         """This method will take all needed actions to find all saved 
         substitutes"""
         favorite_repository = Favorite()
         favorite_repository.find_old_fav(connector)
+        cls.welcome()
         
 
 

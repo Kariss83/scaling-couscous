@@ -7,11 +7,12 @@ import records
 class Favorite():
     """This class is used to store and fetch favorites"""
     
-    def save_fav(self, connector, substitutor):
+    def save_fav(self, connector, substitutor, ui):
         """This method will safe the favorite into the DB"""
         try:
             choice = input(
-                "Voulez vous sauvegarder votre recherche? Entrez 'oui' on 'non' : ")
+                "Voulez vous sauvegarder votre recherche?" 
+                "Entrez 'oui' on 'non' : ")
             if choice.lower() == "oui":
                 connector.db.query("""
                 INSERT INTO Favorites(product, substitute) VALUES(:prod, :sub)""",
@@ -24,10 +25,9 @@ class Favorite():
                 print("Veuillez entrer une réponse valide svp.")
         except:
             print("Une erreur est survenue lors de l'enregistrement. Désolé.")
-        
         #relancer welcome
     
-    def find_old_fav(self, connector):
+    def find_old_fav(self, connector, ui):
         """This methode display all the saved favorites from previous 
         searches"""
         try:
@@ -37,7 +37,6 @@ class Favorite():
                 fav.substitute)
         except:
             print("Nous n'avons pas trouvé de favoris enregistrés")
-        
         #relancer welcome
 
 

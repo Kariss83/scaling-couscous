@@ -39,7 +39,7 @@ class Fetcher:
             url TEXT,
             category_id INT NOT NULL REFERENCES category_id,
             stores TEXT NOT NULL,
-            PRIMARY KEY (id))"""
+            PRIMARY KEY (id)) DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_general_ci"""
         )
         connector.db.query('DROP TABLE IF EXISTS Categories')
         connector.db.query("""CREATE TABLE Categories (
@@ -105,6 +105,9 @@ class Fetcher:
                     nutrigrade=nutrition_grade, stores=stores_raw)
             except KeyError:
                 print("value missing")
+            # except sqlalchemy.exc.DatabaseError:
+                # print("value not conform to db column format")
+
 
     def populate_categories(self, connector):
         """This method will populate the DB with data from the API"""
