@@ -50,7 +50,16 @@ class Susbtitutor():
         for i in random_list:
             print(f'{i} : {self.liste_bad[i].name}')
         self.prod_choice = self.liste_bad.all()[int(input())]
-        print(self.prod_choice)
+        print('Vous voulez remplacer le produit suivant: ')
+        print(self.prod_choice.name)
+        print('Plus d\'informations disponibles sur ce produit ici: ')
+        print(self.prod_choice.url)
+        try:
+            print('Vous pouvez trouver ce produit dans le(s) magasin(s)'
+            'suivant: ')
+            print(self.prod_choice.stores)
+        except AssertionError:
+            print("Nous ne savons pas où trouver ce produit")
 
     def pick_category(self, connector):
         """This method allows the user to pick a category in which he desires
@@ -68,8 +77,6 @@ class Susbtitutor():
         """This method compare the number of tag a given product has in common
         with all other products in its category and return the one with most
         tags in common"""
-        print(self.prod_choice.category_id)
-        print(type(self.prod_choice[0]))
         substitute_cat = CATEGORIES[self.prod_choice.category_id-1]
         self.substitute = connector.db.query("""
         SELECT products.name, products.id, products.url, COUNT(*) FROM Products
@@ -92,9 +99,18 @@ class Susbtitutor():
         prod_id=self.prod_choice.id
         )
         print('voici votre substitut :')
-        print(self.substitute[0])
-        # print(self.substitute[0].name)
-        # afficher les détails de mon produit
+        print(self.substitute[0].name)
+        try:
+            print("Vous pouvez trouver plus de détails à l'"
+            "adresse suivante: ",
+            self.substitute[0].url)
+        except AttributeError:
+            print("Nous ne connaissons pas l'url de ce produit")
+        try :
+            print('Vous pouvez retrouver ce produit dans les magasins suivants : ',
+            self.substitute[0].stores)
+        except AttributeError:
+            print("Nous ne savons pas où trouver ce produit")
 
 
 if __name__ == '__main__':
