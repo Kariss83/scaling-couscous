@@ -1,6 +1,19 @@
 #! usr/bin/env/python3
 # -*- coding : utf8 -*-
-"""module doc"""
+"""Substit module documentation
+Description:
+    This module has the responsibility of finding the substitute to a product
+    that has previously been proposed to the user (after having first asked to
+    the user to pick a category)
+
+Note:
+    The algorythm for finding the best substitute is described here:
+    Using only SQL, we will compute for the ingredient picked by the user, the
+    number of tags it has in common with all other products that are in the
+    same category but with a nutrigrade of b or higher.
+    We consider that if products are tagged correctly, the more tags they have
+    in common, the more likely they have to be a potential substitute.
+"""
 
 import random
 from connector import Connector
@@ -22,7 +35,7 @@ class Susbtitutor():
         self.liste_leven = []
 
     def pick_products(self, connector):
-        """This method wiill print 5 random products of low nutrigrade
+        """This method will print 5 random products of low nutrigrade
         from the category the user have choosen"""
         print('choississez un aliment à substituer : ')
         # first, we requests the DB for products with bad nutriscore

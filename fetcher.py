@@ -1,6 +1,53 @@
 #! usr/bin/env/python3
 # -*- coding : utf8 -*-
-"""module docstring"""
+"""fetcher module documentation
+Description:
+    This module define a class called Fetcher that is used to interact with the
+    DB through all the program process (initialization, normal use) and also
+    with the OpenFoodFact API through requests.
+
+Note:
+    This class will be able to 1. Create tables, 2. Create dictionnaries used
+    to interrogate DB, 3. actually requests the API, 4. fill all DB tables.
+
+        1. Using the method create_table instance of Fetcher will prepare the
+        DB :
+        First it will clean tables with a DROP IF EXISTS, then it will create
+        all needed tables : categories, products, tags, product_has_tag, 
+        favorites.
+
+
+        2. Using the method create_crits, instance will sotre a dictionnary
+        used by requests as parameters to interrogate the OFF API according to
+        the tags proposed to 
+        @ https://en.wiki.openfoodfacts.org/API/Read/Search#Parameters
+
+
+        3. Using the request method, the instance will simply make the request
+        via the requests module and using the dictionnary previously created
+
+
+        4. Using methods populates_***, the instance will populate each tables
+        in the following order (changing the order would cause the program to 
+        crash):
+        Categories, Products, Tags, Product_has_tags)
+
+        In order to populate Categories, the instance will simply read the
+        constant CATEGORIES defined in the constants module and assign them an
+        id (actually done by MySQL).
+
+        In order to populate products, the instance look for 1000 products in a
+        given category (in one search using the appropriate dictionnary for the
+        request) and stores them with an id and storing the id of of category
+        also. While doing so, the instance will store a set of all the tags it
+        has seenfor the products it has stored.
+
+        In order to populate tags, we using the previously talked about set.
+
+        In order to populate product_has_tag, the instance will look for each
+        product all the tags it contains and for each tags, look for its id in
+        the tags table in order to stores couple of (prod_id, tag_id).
+"""
 import requests  # https://github.com/kennethreitz/requests
 from constants import CATEGORIES
 from connector import Connector
@@ -20,7 +67,8 @@ class Fetcher:
         # stores all tags in a set ton have the list of all unique tags
         self.tags_as_set = set()
 
-    def create_table(self, connector):
+    @staticmethod
+    def create_table(connector):
         """This method will create the DB."""
         # creation of table Products
         connector.db.query('DROP TABLE IF EXISTS Products')
@@ -113,7 +161,8 @@ class Fetcher:
             except KeyError:
                 print("value missing")
 
-    def populate_categories(self, connector):
+    @staticmethod
+    def populate_categories(connector):
         """This method will populate the DB with data from the API"""
         try:
             for cat in CATEGORIES:
@@ -136,7 +185,8 @@ class Fetcher:
         except KeyError:
             pass
 
-    def populate_products_has_tags(self, connector):
+    @staticmethod
+    def populate_products_has_tags(connector):
         """ doc """
         try:
             all_prod = connector.db.query("""SELECT * FROM Products""")

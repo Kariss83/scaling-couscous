@@ -1,6 +1,34 @@
 #! usr/bin/env/python3
 # -*- coding : utf8 -*-
-"""module docstring"""
+"""Main file of the program
+Description:
+    This file define the UserInterface class that is responsible for printing
+    to the user the choices he has to make and stores its answers in order to
+    make him proceed to the good part of the program (finding a substitute or
+    find saved substitutes).
+
+Note:
+    With the welcome method the instance of UserInterface will present the user
+    it's first choices and stores its answer.
+    With the repart method the instance will analyse the answer and launch the
+    method corresponding to the user's input
+    With the database_init method the instance will initialize an instance of
+    Fetcher (in fetcher.py module) in order to both create the DB and its table
+    and populate them
+    With the make_search method, the instance will initialize an instance of
+    Substitutor (substit.py module) and an instance of Favorite (favorite.py
+    module) in order let the other search a substitute and save it in the DB
+    and then send back to the welcome method.
+    With the find_search method, the instance will initialize an instance of
+    Favorite (favorite.py module) in order to print all the saved previous
+    substitutes.
+
+Options:
+    -i, --initalization : launch the program for the first time with this
+        option in order to prepare the DB.
+
+
+"""
 
 from connector import Connector
 from fetcher import Fetcher
@@ -97,11 +125,11 @@ if __name__ == "__main__":
         help="use this option to initialize the DB at first launch"
     )
     args = parser.parse_args()
-    if args.initalization:
+    if args.initalization:  # in this case we just initialize the DB
         connector = Connector()
         userinterface = UserInterface()
         userinterface.database_init(connector)
-    else:
+    else:  # in this case, normal use of the program
         connector = Connector()
         userinterface = UserInterface()
         userinterface.welcome()
