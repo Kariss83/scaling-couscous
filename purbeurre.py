@@ -7,7 +7,7 @@ from fetcher import Fetcher
 from substit import Susbtitutor
 from favorite import Favorite
 from constants import CATEGORIES
-import argparse
+import argparse  # https://docs.python.org/3/library/argparse.html
 
 
 class UserInterface():
@@ -49,7 +49,8 @@ class UserInterface():
         else:
             self.find_search()
 
-    def database_init(self, connector):
+    @staticmethod
+    def database_init(connector):
         """This method takes needed actions to create and populate the DB"""
         # We use the fetcher to create then populate all DB tables
         fetcher = Fetcher()
