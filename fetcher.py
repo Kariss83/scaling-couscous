@@ -197,11 +197,15 @@ class Fetcher:
                 # and for any product we look for the id of its tags
                 for tag in all_tags:
                     # then we store couple of prod_id and tag_id
+                    print(tag.replace(' ', ''))
+                    print(type(tag))
                     try:
                         tag_id = connector.db.query("""
                             SELECT id FROM Tags WHERE name = :name""",
-                            name=tag.replace("'", "")
+                            name=tag.replace(' ', '').replace("'", "")
                         )
+                        print(type(tag_id))
+                        print(tag_id)
                         connector.db.query("""
                             INSERT INTO Product_has_tag(product_id, tag_id)
                             VALUES(:prod_id, :tag_id)
