@@ -5,7 +5,7 @@ Description:
     This module purposes is to establish connection with the DB though an
     instance of a class called Connector.
     The only taken action is to establish the connection at the creation of the
-    instance, so we do it inside the __ini__ method of the class
+    instance, so we do it inside the __init__ method of the class
 """
 
 import records  # https://github.com/kennethreitz/records
