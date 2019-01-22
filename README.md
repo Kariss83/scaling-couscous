@@ -41,17 +41,91 @@ is not supported yet by one of the module used in this program.
 
 Then you'll have to do the following steps:
 
-1. Create a new user (making sure you use the old authentification plugin) with the command:
+1. Create a new user (making sure you use the old authentification plugin) 
+    with the command:
 
 ```sql
-CREATE USER 'name'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
-```
-
-2. Create a new database with the command:
-
-```sql
-
+CREATE USER 'user_name'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
 ```
 
 And note the *name* and *password* of the user as you'll need to specify them
 later as virtual environnment variables
+
+2. Create a new database with the command:
+
+```sql
+CREATE DATABASE db_name;
+```
+
+Once again, note the *db_name* as we will use it a bit later as a virtual
+environment variable.
+
+3. Grant your user privileges on the DB you just created using the following command:
+
+```sql
+GRANT ALL PRIVILEGES ON db_name.* TO 'user_name'@'localhost';
+```
+
+4. Get the project on your machine by running this command:
+
+```bash
+git clone https://github.com/Kariss83/scaling-couscous.git
+```
+
+5. Put yourself in the directory and create a .env file containing your infos
+    (here is what your file should look like):
+
+```
+# We need in here the name of the DB created to run the project
+# And the credentials to access it in order to make connection to the DB
+
+# url of db connection
+DATABASE_URL = mysql+mysqlconnector://your_user_name:your_user_password@localhost:3306/your_db_name?charset=utf8mb4
+```
+
+What you have to do is replace *your_user_name:your_user_password* by the info
+you used in step 1 and replace *your_db_name* by the info you used in step 2.
+
+6. If you don't use pipenv yet you'll have to install it by running:
+
+```bash
+python -m pip install pipenv
+```
+
+Then, use it to install of the needed modules by running:
+
+```bash
+pipenv install
+```
+
+7. You'll have then to run the program a first time to initialize the db:
+
+Start the virutalenv by running:
+
+```bash
+pipenv shell
+```
+
+Then when you are using it launch the program by running:
+
+```bash
+python purbeurre.py -i
+```
+
+The *-i* option will initialize the DB in order to be able to run the program.
+Watch out if you don't use this option the first time your program won't run!!!
+
+After the installation of the DB is completed you can launch the program using
+the following command:
+
+```bash
+python purbeurre.py
+```
+
+## Troubleshooting
+
+If you have trooble using this program don't hesitate to ask for help here on GitHub.
+
+## Thanks
+
+Thanks to Kenneth Reitz for it's amazing [records module](https://github.com/kennethreitz)! 
