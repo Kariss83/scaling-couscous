@@ -1,12 +1,14 @@
 #! usr/bin/env/python3
 # -*- coding : utf8 -*-
+"""module doc"""
 
 import random
-from connector import *
-from constants import *
+from connector import Connector
+from constants import CATEGORIES
+
 
 class Susbtitutor():
-
+    """This class is used to search and propose a substitute"""
 
     def __init__(self):
         """This init method create all atributes needed for the substitute"""
@@ -23,14 +25,15 @@ class Susbtitutor():
         """This method wiill print 5 random products of low nutrigrade
         from the category the user have choosen"""
         print('choississez un aliment à substituer : ')
-        #first, we requests the DB for products with bad nutriscore
+        # first, we requests the DB for products with bad nutriscore
 
-        #utiliser records et mettre  :
+        # utiliser records et mettre  :
         self.liste_bad = connector.db.query("""SELECT * FROM Products WHERE
-         category_id = :category_id AND (nutrigrade IN ('e','d','c'))""",
-          category_id=self.cat_choice)
-        #then we pick 5 random item iin the returned list
-        random_list = random.sample(range(1,len(self.liste_bad.all())), 5)
+            category_id = :category_id AND (nutrigrade IN ('e','d','c'))""",
+            category_id=self.cat_choice
+        )
+        # then we pick 5 random item iin the returned list
+        random_list = random.sample(range(1, len(self.liste_bad.all())), 5)
         for i in random_list:
             print(f'{i} : {self.liste_bad[i].name}')
         self.prod_choice = self.liste_bad.all()[int(input())]
@@ -45,23 +48,22 @@ class Susbtitutor():
             print(cat.id, " ", cat.name)
         print()
         self.cat_choice = int(input())
-        print(f'you have choosen the category : {CATEGORIES[self.cat_choice-1]}')
-
+        print(
+            f'you have choosen the category : {CATEGORIES[self.cat_choice-1]}')
 
     def pick_substitute(self, connector):
-        """This method will compute for a given product the Levenshtein 
-        Distance (LD) with all other products of the same category with a 
-        nutrigrade hiigher than b and return a subtite by finding the lowest 
-        LD"""
+        """This method compare the number of tag a given product has in common
+        with all other products in its category and return the one with most
+        tags in common"""
         print(self.prod_choice.category_id)
         print(type(self.prod_choice[0]))
         substitute_cat = CATEGORIES[self.prod_choice.category_id-1]
         self.substitute = connector.db.query("""
-        SELECT products.name, COUNT(*) FROM Products
+        SELECT products.name, products.id, products.url, COUNT(*) FROM Products
         JOIN Product_has_tag ON Products.id = Product_has_tag.product_id
         JOIN Categories ON  Products.category_id = categories.id
-        WHERE 
-            categories.name = :cat_name 
+        WHERE
+            categories.name = :cat_name
 
             AND products.id != :prod_id
 
@@ -73,22 +75,18 @@ class Susbtitutor():
             AND products.nutrigrade IN ('a', 'b')
         GROUP BY products.id
         ORDER BY count(*) DESC""",
-        cat_name=substitute_cat, prod_id=self.prod_choice.id)
+        cat_name=substitute_cat,
+        prod_id=self.prod_choice.id
+        )
         print('voici votre substitut :')
-        print(self.substitute[0].name)
-
-        
-        
-
+        print(self.substitute[0])
+        # print(self.substitute[0].name)
+        # afficher les détails de mon produit
 
 
-
-
-if __name__=='__main__':
+if __name__ == '__main__':
     test = Susbtitutor()
     connector = Connector()
     test.pick_category(connector)
     test.pick_products(connector)
     test.pick_substitute(connector)
-
-    

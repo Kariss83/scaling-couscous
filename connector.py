@@ -1,15 +1,18 @@
 #! usr/bin/env/python3
 # -*- coding : utf8 -*-
+"""module docstrings"""
 
-import records # https://github.com/kennethreitz/records
+import records  # https://github.com/kennethreitz/records
 
 
 class Connector():
     """This method allow the program to connect to the DB"""
 
     def __init__(self):
-        self.db = records.Database("""mysql+mysqlconnector://student:mot_de_passe@localhost:3306/mysuperdb?charset=utf8mb4""")
-            #variables d'environnement
-            # passer par time pour donner un nom à la DB
-            # ou alors le demander à l'utilisateur pour éviter galère
+          # using environment variables we get the info needed for the DB
+          # connexion
+        self.db = records.Database()
 
+
+if __name__ == "__main__":
+    connector = Connector()

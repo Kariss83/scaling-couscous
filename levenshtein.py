@@ -11,7 +11,7 @@ def levenshtein1(chaine1, chaine2):
     liste.append(add1)
     for char1 in chaine1:
         add2 = [char1]
-        for char in chaine2:
+        for char2 in chaine2:
             add2.append(0)
         liste.append(add2)
     for i in range(len(liste)):

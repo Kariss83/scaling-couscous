@@ -1,30 +1,32 @@
 #! usr/bin/env/python3
 # -*- coding : utf8 -*-
+"""module docstring"""
 
-import random
 from connector import Connector
-from test_fetcher import Fetcher
-from test_substit import Susbtitutor
+from fetcher import Fetcher
+from substit import Susbtitutor
 from favorite import Favorite
-from constants import *
+from constants import CATEGORIES
 import argparse
 
+
 class UserInterface():
-    """This class will display basic info needed to begiin to run the program"""
+    """This class will display basic info needed to begin to run the program"""
 
     def __init__(self):
         """This method initalize all the variables needed to run the program
         """
+        # stores the user's inputs
         self.choices = False
-        connector = Connector()
 
     def welcome(self):
         """This method print the welcome message"""
         print("""Bienvenue dans le programme PurBeurre.\n
         Vous pouvez taper 0 pour quitter.\n
         Vous pouvez taper 1 pour faire une recherche de substituts.\n
-        Vous pouvez taper 2 pour voir les substituts enregistrés sur cette 
+        Vous pouvez taper 2 pour voir les substituts enregistrés sur cette
         machine.""")
+        # allows us to repeat the process until a valid input is given
         while True:
             try:
                 self.choices = int(input())
@@ -35,61 +37,64 @@ class UserInterface():
                 self.choices = int(input())
             else:
                 break
-        # pensez répétition de la question (boucle while)
-    
+        self.repart()
+
     def repart(self):
-        """This method will analyse the user answer and process to the next 
+        """This method will analyse the user answer and process to the next
         part of the program according to it's choice"""
         if self.choices == 0:
             exit()
         elif self.choices == 1:
-            UserInterface.make_search()
+            self.make_search()
         else:
-            UserInterface.find_search()
+            self.find_search()
 
     def database_init(self, connector):
-        """This method takes all needed actions to create and populate the DB"""
+        """This method takes needed actions to create and populate the DB"""
+        # We use the fetcher to create then populate all DB tables
         fetcher = Fetcher()
         fetcher.create_table(connector)
         fetcher.populate_categories(connector)
+        # we populate products table categories by categories
         for cat in CATEGORIES:
-            fetcher.create_crits("categories", "contains", cat, 1000, 
-            "unique_scans_n")
+            fetcher.create_crits("categories", "contains", cat, 1000,
+                "unique_scans_n"
+            )
             fetcher.request()
             fetcher.populate_products(cat, connector)
         fetcher.populate_tags(connector)
         fetcher.populate_products_has_tags(connector)
         print("Congratulations, you have initialized the DB! \nYou must now "
-        "launch the program without option")
-    
-    @classmethod
-    def make_search(cls):
-        """This method will take all needed actions to make a substitute 
+            "launch the program without option"
+        )
+
+    def make_search(self):
+        """This method will take all needed actions to make a substitute
         search"""
         substitutor = Susbtitutor()
         favorite_repository = Favorite()
+        # offering choice between categories
         substitutor.pick_category(connector)
+        # offering choice between five random ingredients in a given category
         substitutor.pick_products(connector)
         substitutor.pick_substitute(connector)
         favorite_repository.save_fav(connector, substitutor)
-        cls.welcome()
+        self.welcome()
 
-
-    def find_search(cls):
-        """This method will take all needed actions to find all saved 
+    def find_search(self):
+        """This method will take all needed actions to find all saved
         substitutes"""
         favorite_repository = Favorite()
         favorite_repository.find_old_fav(connector)
-        cls.welcome()
-        
+        self.welcome()
 
 
-
-            
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-i", "--initalization", action="store_true", 
-    help="use this option to initialize the DB at first launch")
+    parser.add_argument(
+        "-i", "--initalization", action="store_true",
+        help="use this option to initialize the DB at first launch"
+    )
     args = parser.parse_args()
     if args.initalization:
         connector = Connector()
@@ -99,6 +104,3 @@ if __name__ == "__main__":
         connector = Connector()
         userinterface = UserInterface()
         userinterface.welcome()
-        userinterface.repart()
-        
-
