@@ -60,6 +60,7 @@ class UserInterface():
                 self.choices = int(input())
                 if self.choices not in (0, 1, 2):
                     raise ValueError("Vous devez entrer 0, 1 ou 2!")
+                    self.choices = int(input())
             except ValueError:
                 print('Vous devez entrer 0, 1 ou 2!')
                 self.choices = int(input())

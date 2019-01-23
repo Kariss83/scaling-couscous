@@ -104,9 +104,9 @@ class Fetcher:
         # creation of table Favorites
         connector.db.query('DROP TABLE IF EXISTS Favorites')
         connector.db.query("""CREATE TABLE Favorites (
-	    id INT PRIMARY KEY AUTO_INCREMENT,
-        product VARCHAR(100)  NOT NULL,
-        substitute VARCHAR(100) NOT NULL)""")
+	    product_id INT REFERENCES product(id) ON DELETE CASCADE,
+        substitute_id INT REFERENCES product(id) ON DELETE CASCADE,
+        PRIMARY KEY (product_id, substitute_id))""")
 
     def create_crits(self, tagtype_0, tag_contains_0, tag_0, page_size, sort):
         """This method will create a dictionnary in order to request the API"""

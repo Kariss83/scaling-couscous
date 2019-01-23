@@ -36,11 +36,11 @@ class Favorite():
                 # cette reqquêtre devrait enregistrer les id pour retrouver
                 # l'intégralité des infos par la suite.
                 connector.db.query("""
-                    INSERT INTO Favorites(product,substitute)
+                    INSERT INTO Favorites(product_id, substitute_id)
                     VALUES(:prod, :sub)
                     """,
-                    prod=substitutor.prod_choice.name,
-                    sub=substitutor.substitute[0].name
+                    prod=substitutor.prod_choice.id,
+                    sub=substitutor.substitute[0].id
                 )
                 print("Enregistré avec succès!")
             elif choice.lower() == "non":
@@ -49,19 +49,29 @@ class Favorite():
                 print("Veuillez entrer une réponse valide svp.")
         except:
             print("Une erreur est survenue lors de l'enregistrement. Désolé.")
-
+    
     @staticmethod
     def find_old_fav(connector):
         """This methode display all the saved favorites from previous
         searches"""
         # cette méthode devrait plutôt faire apparaitre le numéro de la
         # substitution puis permettre d'entrer dans le détail
-        all_fav = connector.db.query("""SELECT * FROM Favorites""")
-        if len(all_fav) != 0:
-            for fav in all_fav:
-                print(fav.product, " peut être remplacé par : ",
-                    fav.substitute)
-        else:
+        all_fav = connector.db.query("SELECT * FROM mysuperdb.favorites")
+        # import pdb; pdb.set_trace()
+        compteur = 0
+        for fav in all_fav:
+            compteur += 1
+            saved_prod = connector.db.query("""
+                SELECT * FROM Products WHERE name = :name""",
+                name=fav.product_id
+            )
+            saved_subs = connector.db.query("""
+                SELECT * FROM Products WHERE name = :name""",
+                name=fav.substitute_id
+            )
+            print(saved_prod[0], " peut être remplacé par : ",
+            saved_subs[0])
+        if compteur == 0:
             print("Nous n'avons pas trouvé de favoris enregistrés")
 
 
@@ -69,3 +79,4 @@ if __name__ == '__main__':
     connector = Connector()
     favorite = Favorite()
     favorite.find_old_fav(connector)
+    # import pdb; pdb.set_trace()
