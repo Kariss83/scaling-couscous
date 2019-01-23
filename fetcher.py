@@ -142,7 +142,7 @@ class Fetcher:
                 tags_raw = rec['categories_prev_tags']
                 self.tags_as_set = set(tags_raw) | self.tags_as_set
                 url = rec['url']
-                # keeping only products for which we have nutriigrade info
+                # keeping only products for which we have nutrigrade info
                 if nutrition_grade in ('a', 'b', 'c', 'd', 'e'):
                     connector.db.query("""
                         INSERT INTO Products(id, name, url, tags, category_id,
