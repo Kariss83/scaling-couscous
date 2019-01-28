@@ -56,24 +56,37 @@ class Favorite():
         searches"""
         # cette méthode devrait plutôt faire apparaitre le numéro de la
         # substitution puis permettre d'entrer dans le détail
-        all_fav = connector.db.query("SELECT * FROM mysuperdb.favorites")
-        # import pdb; pdb.set_trace()
-        compteur = 0
-        for fav in all_fav:
-            compteur += 1
-            saved_prod = connector.db.query("""
-                SELECT * FROM Products WHERE name = :name""",
-                name=fav.product_id
-            )
-            saved_subs = connector.db.query("""
-                SELECT * FROM Products WHERE name = :name""",
-                name=fav.substitute_id
-            )
-            print(saved_prod[0], " peut être remplacé par : ",
-            saved_subs[0])
-        if compteur == 0:
+        all_fav = connector.db.query(
+            "SELECT * FROM mysuperdb.favorites",
+            fetchall=True
+        )
+        if not all_fav:
             print("Nous n'avons pas trouvé de favoris enregistrés")
-
+        else:
+            for fav in all_fav:
+                saved_prod = connector.db.query("""
+                    SELECT * FROM Products WHERE id = :prodid""",
+                    prodid=fav.product_id
+                )
+                saved_subs = connector.db.query("""
+                    SELECT * FROM Products WHERE id = :prodid""",
+                    prodid=fav.substitute_id
+                )
+                print(
+                "le produit '",
+                saved_prod[0].name,
+                "' disponible à l'adresse : ",
+                saved_prod[0].url,
+                "et trouvable dans le(s) magasin(s) suivant(s) : ",
+                saved_prod[0].stores,
+                "peut être remplacé par : ",
+                "... ",
+                saved_subs[0].name,
+                " disponible à l'adresse : ",
+                saved_subs[0].url,
+                "et trouvable dans le(s) magasin(s) suivant(s) : ",
+                saved_subs[0].stores)
+                
 
 if __name__ == '__main__':
     connector = Connector()
