@@ -73,19 +73,23 @@ class Favorite():
                     prodid=fav.substitute_id
                 )
                 print(
-                "le produit '",
-                saved_prod[0].name,
-                "' disponible à l'adresse : ",
-                saved_prod[0].url,
-                "et trouvable dans le(s) magasin(s) suivant(s) : ",
-                saved_prod[0].stores,
-                "peut être remplacé par : ",
-                "... ",
-                saved_subs[0].name,
-                " disponible à l'adresse : ",
-                saved_subs[0].url,
-                "et trouvable dans le(s) magasin(s) suivant(s) : ",
-                saved_subs[0].stores)
+                    "le produit '",
+                    saved_prod[0].name,
+                    "' disponible à l'adresse : ",
+                    saved_prod[0].url,
+                    "et trouvable dans le(s) magasin(s) suivant(s) : ",
+                    saved_prod[0].stores
+                )
+                print(
+                    "peut être remplacé par : '"
+                )
+                print(
+                    saved_subs[0].name,
+                    "' disponible à l'adresse : ",
+                    saved_subs[0].url,
+                    "et trouvable dans le(s) magasin(s) suivant(s) : ",
+                    saved_subs[0].stores
+                )
                 
 
 if __name__ == '__main__':
