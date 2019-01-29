@@ -62,7 +62,6 @@ class UserInterface():
                     raise ValueError("Vous devez entrer 0, 1 ou 2!")
             except ValueError:
                 print('Vous devez entrer 0, 1 ou 2!')
-                self.choices = int(input())
             else:
                 break
         self.repart()

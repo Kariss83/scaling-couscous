@@ -31,7 +31,7 @@ class Favorite():
         try:
             choice = input(
                 "Voulez vous sauvegarder votre recherche?"
-                "Entrez 'oui' on 'non' : ")
+                " Entrez 'oui' on 'non' : ")
             if choice.lower() == "oui":
                 # cette reqquêtre devrait enregistrer les id pour retrouver
                 # l'intégralité des infos par la suite.
@@ -77,9 +77,12 @@ class Favorite():
                     saved_prod[0].name,
                     "' disponible à l'adresse : ",
                     saved_prod[0].url,
-                    "et trouvable dans le(s) magasin(s) suivant(s) : ",
-                    saved_prod[0].stores
-                )
+                    "et trouvable dans le(s) magasin(s) suivant(s) : ")
+                if saved_prod[0].stores:
+                    print(saved_prod[0].stores)
+                else:
+                    print("Pas de magasins disponibles")
+                
                 print(
                     "peut être remplacé par : '"
                 )
@@ -87,9 +90,11 @@ class Favorite():
                     saved_subs[0].name,
                     "' disponible à l'adresse : ",
                     saved_subs[0].url,
-                    "et trouvable dans le(s) magasin(s) suivant(s) : ",
-                    saved_subs[0].stores
-                )
+                    "et trouvable dans le(s) magasin(s) suivant(s) : ")
+                if saved_subs[0].stores:
+                    print(saved_subs[0].stores)
+                else:
+                    print("Pas de magasins disponibles")
                 
 
 if __name__ == '__main__':

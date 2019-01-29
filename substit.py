@@ -57,7 +57,10 @@ class Susbtitutor():
         try:
             print('Vous pouvez trouver ce produit dans le(s) magasin(s)'
             'suivant: ')
-            print(self.prod_choice.stores)
+            if self.prod_choice.stores:
+                print(self.prod_choice.stores)
+            else:
+                print("Pas de magasins disponibles")
         except AssertionError:
             print("Nous ne savons pas où trouver ce produit")
 

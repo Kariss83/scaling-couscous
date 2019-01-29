@@ -159,7 +159,8 @@ class Fetcher:
             # allow us to make sure no product don't have one of the
             # requested info
             except KeyError:
-                print("value missing")
+                print("""Veuillez patienter, la database est en cours de
+                construction""")
 
     @staticmethod
     def populate_categories(connector):
