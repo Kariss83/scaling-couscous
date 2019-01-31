@@ -49,7 +49,16 @@ class Susbtitutor():
         random_list = random.sample(range(1, len(self.liste_bad.all())), 5)
         for i in random_list:
             print(f'{i} : {self.liste_bad[i].name}')
-        self.prod_choice = self.liste_bad.all()[int(input())]
+        while True:
+            try:
+                choice = int(input())
+                self.prod_choice = self.liste_bad.all()[choice]
+                if choice not in random_list:
+                    raise ValueError("Vous devez entrer une valeur valide!")
+            except ValueError:
+                print('Vous devez entrer une valeur valide!')
+            else:
+                break
         print('Vous voulez remplacer le produit suivant: ')
         print(self.prod_choice.name)
         print('Plus d\'informations disponibles sur ce produit ici: ')
@@ -69,12 +78,22 @@ class Susbtitutor():
         to find a substitute"""
         print('choose a category : ')
         all_cat = connector.db.query("""SELECT * FROM Categories""")
+        cat_list = []
         for cat in all_cat:
             print(cat.id, " ", cat.name)
+            cat_list.append(cat.id)
         print()
-        self.cat_choice = int(input())
+        while True:
+            try:
+                self.cat_choice = int(input())
+                if self.cat_choice not in cat_list:
+                    raise ValueError("Vous devez entrer un numéro valide!")
+            except ValueError:
+                print("Vous devez entrer un numéro valide!")
+            else:
+                break
         print(
-            f'you have choosen the category : {CATEGORIES[self.cat_choice-1]}')
+            f'Vous avez choisi la catégorie : {CATEGORIES[self.cat_choice-1]}')
 
     def pick_substitute(self, connector):
         """This method compare the number of tag a given product has in common
