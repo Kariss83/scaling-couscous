@@ -56,14 +56,10 @@ class UserInterface():
         machine.""")
         # allows us to repeat the process until a valid input is given
         while True:
-            try:
-                self.choices = int(input())
-                if self.choices not in (0, 1, 2):
-                    raise ValueError("Vous devez entrer 0, 1 ou 2!")
-            except ValueError:
-                print('Vous devez entrer 0, 1 ou 2!')
-            else:
+            self.choices = int(input())
+            if self.choices in (0, 1, 2):
                 break
+            print('Vous devez entrer 0, 1 ou 2!')
         self.repart()
 
     def repart(self):

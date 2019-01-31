@@ -57,7 +57,7 @@ class Favorite():
         # cette méthode devrait plutôt faire apparaitre le numéro de la
         # substitution puis permettre d'entrer dans le détail
         all_fav = connector.db.query(
-            "SELECT * FROM mysuperdb.favorites",
+            "SELECT * FROM favorites",
             fetchall=True
         )
         if not all_fav:
